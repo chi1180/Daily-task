@@ -7,14 +7,18 @@
     "start": "bun ./src/index.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/nodemailer": "^7.0.2"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
     "@google-cloud/local-auth": "^3.0.1",
+    "cheerio": "^1.1.2",
     "dotenv-flow": "^4.1.0",
-    "googleapis": "105"
+    "google-auth-library": "^10.4.0",
+    "googleapis": "105",
+    "nodemailer": "^7.0.6"
   }
 }

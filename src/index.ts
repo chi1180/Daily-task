@@ -1,28 +1,26 @@
 import { config } from "dotenv-flow";
-import { Calendar } from "./utilities/calendar";
-
-const _Calendar = new Calendar();
+import { getTodo } from "./services/getTodo";
+import { Gemini } from "./utilities/gemini";
+import { makeSchedule } from "./services/makeSchedule";
+import { sendMail } from "./services/mail";
 
 async function main() {
   // load environment variables.
   config();
 
-  try {
-    // get the list of calendar
-    const _Calendar = new Calendar();
-    console.log("[--DEBUG--] Calendar instance created successfully");
-    
-    const calendars = await _Calendar.listCalendars();
-    console.log("[--DEBUG--] listCalendars() returned:", calendars);
+  // get todo data
+  const TODO = await getTodo();
 
-    if (calendars && calendars.length > 0) {
-      console.log(`[--DEBUG--] My calendars are:\n${JSON.stringify(calendars)}`);
-    } else {
-      console.log("[--INFO--] There are no calendars...");
-    }
-  } catch (error) {
-    console.error("[--ERROR--] Error occurred:", error);
-  }
+  // make daily schedule and task on GitHub
+  await makeSchedule(TODO);
 }
 
-main();
+//---  < Start />  ---//
+
+try {
+  main();
+} catch (error) {
+  const message = JSON.stringify(error);
+  console.error("[--ERROR--] Error occurred:", message);
+  sendMail(message);
+}
