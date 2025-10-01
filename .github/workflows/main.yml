@@ -1,1 +1,35 @@
+name: Run Bun project
 
+on:
+  schedule:
+    - cron: "0 19 * * *"  # In JP: 04:00 sun&wed
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run script with secret
+        env:
+          GEMINI_API: ${{ secrets.GEMINI_API }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          GEMINI_API_MODEL: ${{ secrets.GEMINI_API_MODEL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MAIL_USER: ${{ secrets.MAIL_USER }}
+          MAIL_PASS: ${{ secrets.MAIL_PASS }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CALENDAR_CREDENTIALS: ${{ secrets.CALENDAR_CREDENTIALS }}
+          CALENDAR_REFRESH_TOKEN: ${{ secrets.CALENDAR_REFRESH_TOKEN }}
+        run: bun run start
