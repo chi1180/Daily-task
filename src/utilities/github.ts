@@ -1,5 +1,5 @@
 export class GitHub {
-  token = process.env.GITHUB_TOKEN;
+  token = process.env.GLTHUB_TOKEN;
   url = (type: string) =>
     `https://api.github.com/repos/chi1180/Obsidian-data/contents/${encodeURIComponent(type === "tasks" ? "Tasks.md" : "Daily tasks.md")}`;
   sha: string | null = null;

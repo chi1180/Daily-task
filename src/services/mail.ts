@@ -10,7 +10,6 @@ export async function sendMail(errorContext: string) {
   // check env variables
   const user = process.env.MAIL_USER;
   const pass = process.env.MAIL_PASS;
-  const recipient = "c205297@gmail.com";
 
   if (!user || !pass) {
     console.log(`[--ERROR--] There are no valid environment variables...`);
@@ -34,7 +33,7 @@ export async function sendMail(errorContext: string) {
 
     const result = await transport.sendMail({
       html: htmlContent,
-      to: recipient,
+      to: user,
       subject: "[Daily task] Workflow error notify_",
     });
     return result;
