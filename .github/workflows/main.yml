@@ -29,7 +29,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           MAIL_USER: ${{ secrets.MAIL_USER }}
           MAIL_PASS: ${{ secrets.MAIL_PASS }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GLTHUB_TOKEN: ${{ secrets.GLTHUB_TOKEN }}
           CALENDAR_CREDENTIALS: ${{ secrets.CALENDAR_CREDENTIALS }}
           CALENDAR_REFRESH_TOKEN: ${{ secrets.CALENDAR_REFRESH_TOKEN }}
         run: bun run start
