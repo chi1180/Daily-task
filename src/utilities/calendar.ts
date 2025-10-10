@@ -53,6 +53,8 @@ export class Calendar {
 
   private async authenticateLocally(): Promise<void> {
     return new Promise((resolve, reject) => {
+      let redirectUri: string;
+
       // Start local server to receive callback
       const server = http.createServer(async (req, res) => {
         if (req.url?.startsWith("/?")) {
@@ -61,7 +63,10 @@ export class Calendar {
 
           if (code) {
             try {
-              const { tokens } = await this.oauth2Client.getToken(code);
+              const { tokens } = await this.oauth2Client.getToken({
+                code: code,
+                redirect_uri: redirectUri,
+              });
               this.oauth2Client.setCredentials(tokens);
 
               // Save refresh token to env (user should manually add it to their env file)
@@ -102,9 +107,8 @@ export class Calendar {
         }
       });
 
-      server.listen(0, () => {
-        const port = (server.address() as any)?.port;
-        const redirectUri = `http://localhost:${port}`;
+      server.listen(3000, () => {
+        redirectUri = `http://localhost:3000`;
 
         const authUrl = this.oauth2Client.generateAuthUrl({
           access_type: "offline",
@@ -116,7 +120,7 @@ export class Calendar {
         console.log("Opening browser for authentication...");
         console.log("If browser doesn't open automatically, please visit:");
         console.log(authUrl);
-        console.log(`Local server started on http://localhost:${port}`);
+        console.log(`Local server started on http://localhost:3000`);
 
         // Try to open browser
         const platform = process.platform;
