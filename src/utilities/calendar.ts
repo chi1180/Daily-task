@@ -205,7 +205,15 @@ export class Calendar {
     // get list of calendar id
     const res = await this.calendar.calendarList.list();
 
-    if (res.data.items) return res.data.items;
+    if (res.data.items) {
+      const ignore_calendar = JSON.parse(process.env.IGNORE_CALENDAR || "[]");
+      if (ignore_calendar.length > 0) {
+        return res.data.items.filter(
+          (calendar) => !ignore_calendar.includes(calendar.id),
+        );
+      }
+      return res.data.items;
+    }
     return [];
   }
 
