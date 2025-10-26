@@ -2,7 +2,7 @@ name: Run Bun project
 
 on:
   schedule:
-    - cron: "0 19 * * *"  # In JP: 04:00 sun&wed
+    - cron: "0 19 * * *" # In JP: 04:00
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,6 @@ jobs:
 
       - name: Run script with secret
         env:
-          GEMINI_API: ${{ secrets.GEMINI_API }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
           GEMINI_API_MODEL: ${{ secrets.GEMINI_API_MODEL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -31,5 +30,6 @@ jobs:
           MAIL_PASS: ${{ secrets.MAIL_PASS }}
           GLTHUB_TOKEN: ${{ secrets.GLTHUB_TOKEN }}
           CALENDAR_CREDENTIALS: ${{ secrets.CALENDAR_CREDENTIALS }}
+          IGNORE_CALENDARS: ${{ secrets.IGNORE_CALENDARS }}
           CALENDAR_REFRESH_TOKEN: ${{ secrets.CALENDAR_REFRESH_TOKEN }}
         run: bun run start
