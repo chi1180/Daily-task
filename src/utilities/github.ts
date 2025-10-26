@@ -1,7 +1,7 @@
 export class GitHub {
   token = process.env.GLTHUB_TOKEN;
   url = (type: string) =>
-    `https://api.github.com/repos/chi1180/Obsidian-data/contents/${encodeURIComponent(type === "tasks" ? "Tasks.md" : "Daily tasks.md")}`;
+    `https://api.github.com/repos/chi1180/Obsidian-data/contents/${encodeURIComponent(type === "tasks" ? "Tasks.md" : "Daily tasks.md")}?ref=main`;
   sha: string | null = null;
 
   public async getTasks() {
