@@ -3,7 +3,6 @@
  * 2. get tasks from github
  */
 
-import type { CalendarEvent } from "../types/calendar.types";
 import type { Task, Todo } from "../types/task.types";
 import { Calendar } from "../utilities/calendar";
 import { GitHub } from "../utilities/github";
